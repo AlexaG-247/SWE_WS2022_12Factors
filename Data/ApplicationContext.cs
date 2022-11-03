@@ -6,7 +6,7 @@ namespace Product.Microservice.Data
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {this.Database.EnsureCreated();}
         public DbSet<ProductItem> ProductItems { get; set; }
 
         public async Task<int> SaveChanges()
