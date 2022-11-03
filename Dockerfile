@@ -3,8 +3,6 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-# RUN dotnet tool install --global dotnet-ef
-# ENV PATH="$PATH:/root/.dotnet/tools"
 WORKDIR /src
 COPY ["Product.Microservice.csproj", "./"]
 RUN dotnet restore "./Product.Microservice.csproj"
@@ -17,8 +15,6 @@ RUN dotnet publish "Product.Microservice.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-# RUN dotnet ef migrations add Product
-# RUN dotnet ef database update
 ENTRYPOINT ["dotnet", "Product.Microservice.dll"]
 
 
